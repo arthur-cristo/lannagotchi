@@ -7,16 +7,21 @@ import useMovement from "../hooks/useMovement";
 const Alanna = () => {
   const hitbox = useRef<HTMLDivElement>(null);
   const [x, setX] = useState(0);
+
   const { measurements } = useHitbox(hitbox, x);
-  useMovement(measurements, setX);
+
+  const { state, sprite } = useMovement(measurements, setX, SPRITES.alanna);
+
+  const isWalkingRight = state === "movingRight";
 
   return (
     <Box position="absolute" bottom={4} right={`${x}px`} ref={hitbox}>
       <Image
         h="72px"
-        src={SPRITES.alanna.idle}
+        src={sprite}
         alt="Alanna"
         imageRendering="pixelated"
+        transform={isWalkingRight ? "scaleX(-1)" : "none"}
       />
 
       {measurements && DEBUG && (

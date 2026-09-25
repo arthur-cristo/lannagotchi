@@ -1,25 +1,31 @@
 import { useEffect, useRef, useState } from "react";
-import type { HitboxMeasurements, MovementState } from "../types";
+import type {
+  HitboxMeasurements,
+  MovementState,
+  PersonSprites,
+} from "../types";
 import { MOVEMENT_SPEED } from "../consts";
 
 const MIN_WALK_DISTANCE = 10;
+const WALK_FRAME_DURATION = 120;
 
 const useMovement = (
   hitboxMeasurements: HitboxMeasurements | null,
   setX: React.Dispatch<React.SetStateAction<number>>,
+  sprites: PersonSprites,
 ) => {
   const [state, setState] = useState<MovementState>("idle");
+  const [sprite, setSprite] = useState(sprites.idle);
 
   const measurementsRef = useRef<HitboxMeasurements | null>(hitboxMeasurements);
   const targetDistanceRef = useRef(0);
   const traveledRef = useRef(0);
 
-  // mantém o ref sempre sincronizado, sem disparar o loop de novo
   useEffect(() => {
     measurementsRef.current = hitboxMeasurements;
   }, [hitboxMeasurements]);
 
-  // decide o que fazer quando está idle
+  // Decide when and where to walk
   useEffect(() => {
     if (!hitboxMeasurements || state !== "idle") return;
 
@@ -27,22 +33,23 @@ const useMovement = (
 
     const decide = () => {
       timeoutId = setTimeout(() => {
-        if (Math.random() >= 0.4) {
-          console.log("decide: não fazer nada");
+        if (Math.random() >= 0.3) {
           decide();
           return;
         }
-        console.log("decide: andar");
+
         const { left, right } = hitboxMeasurements;
+
         const canGoRight = right > 2;
         const canGoLeft = left > 2;
 
         if (!canGoRight && !canGoLeft) {
-          decide(); // não há espaço pra andar, tenta de novo mais tarde
+          decide();
           return;
         }
 
         const goRight = canGoRight && (!canGoLeft || Math.random() < 0.5);
+
         const availableRoom = (goRight ? right : left) - 2;
 
         if (availableRoom <= 0) {
@@ -66,7 +73,26 @@ const useMovement = (
     return () => clearTimeout(timeoutId);
   }, [hitboxMeasurements, state]);
 
-  // loop de movimento — inicia UMA vez por transição de estado
+  // Walking animation
+  useEffect(() => {
+    if (state === "idle") {
+      setSprite(sprites.idle);
+      return;
+    }
+
+    let frameIndex = 0;
+
+    setSprite(sprites.walk[frameIndex]);
+
+    const intervalId = setInterval(() => {
+      frameIndex = (frameIndex + 1) % sprites.walk.length;
+      setSprite(sprites.walk[frameIndex]);
+    }, WALK_FRAME_DURATION);
+
+    return () => clearInterval(intervalId);
+  }, [state, sprites]);
+
+  // Movement
   useEffect(() => {
     if (state === "idle") return;
 
@@ -92,6 +118,7 @@ const useMovement = (
       }
 
       traveledRef.current += MOVEMENT_SPEED;
+
       setX((prev) =>
         state === "movingRight" ? prev - MOVEMENT_SPEED : prev + MOVEMENT_SPEED,
       );
@@ -102,9 +129,12 @@ const useMovement = (
     animationId = requestAnimationFrame(move);
 
     return () => cancelAnimationFrame(animationId);
-  }, [state, setX]); // <-- sem hitboxMeasurements aqui, de propósito
+  }, [state, setX]);
 
-  return state;
+  return {
+    state,
+    sprite,
+  };
 };
 
 export default useMovement;

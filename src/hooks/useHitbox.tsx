@@ -18,11 +18,9 @@ const useHitbox = (ref: React.RefObject<HTMLElement | null>, x: number) => {
     const hitboxRect = hitboxElement.getBoundingClientRect();
     const parentRect = parent.getBoundingClientRect();
 
-    // Distância da hitbox até as bordas do pai
     const left = hitboxRect.left - parentRect.left;
     const right = parentRect.right - hitboxRect.right;
 
-    // Box irmã
     const sibling = Array.from(parent.children).find(
       (child) => child !== hitboxElement,
     ) as HTMLElement | undefined;
@@ -51,7 +49,6 @@ const useHitbox = (ref: React.RefObject<HTMLElement | null>, x: number) => {
     });
   }, [ref]);
 
-  // configura o ResizeObserver uma única vez
   useEffect(() => {
     calculate();
 
@@ -64,7 +61,6 @@ const useHitbox = (ref: React.RefObject<HTMLElement | null>, x: number) => {
     return () => resizeObserver.disconnect();
   }, [calculate, ref]);
 
-  // recalcula sempre que x mudar (a hitbox se moveu)
   useEffect(() => {
     calculate();
   }, [x, calculate]);

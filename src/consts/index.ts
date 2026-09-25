@@ -1,3 +1,5 @@
+import type { PersonSprites } from "../types";
+
 export const SPRITES = {
   scene: "/sprites/scene/scene.png",
   alanna: {
@@ -7,7 +9,7 @@ export const SPRITES = {
       "/sprites/alanna/walking_2.png",
       "/sprites/alanna/walking_3.png",
     ],
-  },
+  } as PersonSprites,
   arthur: {
     idle: "/sprites/arthur/idle.png",
     walk: [
@@ -15,7 +17,7 @@ export const SPRITES = {
       "/sprites/arthur/walking_2.png",
       "/sprites/arthur/walking_3.png",
     ],
-  },
+  } as PersonSprites,
 };
 
 export const DEBUG = false;
