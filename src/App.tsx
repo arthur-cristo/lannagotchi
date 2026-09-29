@@ -11,7 +11,9 @@ function App() {
   const startGame = async () => {
     try {
       await document.documentElement.requestFullscreen();
-    } catch {}
+    } catch (e) {
+      console.error("Failed to enter fullscreen mode:", e);
+    }
 
     const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(
       navigator.userAgent,
@@ -20,7 +22,9 @@ function App() {
     if (isMobile && screen.orientation?.lock) {
       try {
         await screen.orientation.lock("portrait");
-      } catch {}
+      } catch (e) {
+        console.error("Failed to lock screen orientation:", e);
+      }
     }
 
     setHasStarted(true);

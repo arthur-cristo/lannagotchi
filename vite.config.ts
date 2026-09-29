@@ -7,5 +7,5 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
   },
-  base: '/lannagotchi/',
+  base: "/lannagotchi/",
 });

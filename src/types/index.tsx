@@ -12,4 +12,4 @@ export type MovementState = "movingLeft" | "movingRight" | "idle";
 export type PersonSprites = {
   idle: string;
   walk: string[];
-}
+};

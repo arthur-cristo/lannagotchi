@@ -16,7 +16,7 @@ body {
   width: 100vw;
   height: 100dvh;
   justify-content: center;
-  color: #FAF5FF;
+  color: #faf5ff;
   background: linear-gradient(rgba(25, 19, 28, 0.82), rgba(25, 19, 28, 0.9));
   image-rendering: pixelated;
 }
@@ -46,7 +46,7 @@ body {
   align-items: center;
   gap: 18px;
   padding: 32px 24px 28px;
-  border: 4px solid #FAF5FF;
+  border: 4px solid #faf5ff;
   outline: 4px solid #4a294e;
   background: rgba(25, 19, 28, 0.86);
   box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.38);
@@ -54,7 +54,7 @@ body {
 
 .start-menu__title {
   margin: 0;
-  color: #FAF5FF;
+  color: #faf5ff;
   font-size: clamp(24px, 7vw, 48px);
   line-height: 1.3;
   text-shadow: 4px 4px #78317e;
@@ -64,10 +64,10 @@ body {
   min-width: 170px;
   min-height: 52px;
   padding: 12px 24px;
-  border: 3px solid #FAF5FF;
+  border: 3px solid #faf5ff;
   border-radius: 0;
   color: #251928;
-  background: #C084FC;
+  background: #c084fc;
   box-shadow: 5px 5px 0 #7e3159;
   font-family: inherit;
   font-size: 15px;
@@ -75,7 +75,7 @@ body {
 }
 
 .start-menu__button:hover {
-  background: #D8B4FE;
+  background: #d8b4fe;
 }
 
 .start-menu__button:active {
