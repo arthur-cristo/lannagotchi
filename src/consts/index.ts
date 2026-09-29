@@ -21,7 +21,7 @@ export const SPRITES = {
   icons: {
     arthur: "/sprites/icons/arthur.png",
     notes: "/sprites/icons/notes.png",
-    spotify: "/sprites/icons/spotify.png",
+    spotify: "/sprites/icons/spotify2.png",
   },
 };
 

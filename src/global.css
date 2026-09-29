@@ -6,7 +6,92 @@
 body {
   font-family: Minecraftia;
   text-align: center;
-  background-color: grey;
+  background-color: #19131c;
+  margin: 0;
+  overflow: hidden;
+}
+
+.start-menu {
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  justify-content: center;
+  color: #FAF5FF;
+  background: linear-gradient(rgba(25, 19, 28, 0.82), rgba(25, 19, 28, 0.9));
+  image-rendering: pixelated;
+}
+
+.start-menu::before,
+.start-menu::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border: 2px solid rgba(255, 247, 232, 0.28);
+}
+
+.start-menu::before {
+  inset: 18px;
+}
+
+.start-menu::after {
+  inset: 26px;
+  border-color: rgba(169, 85, 247, 0.32);
+}
+
+.start-menu__panel {
+  z-index: 1;
+  display: flex;
+  width: min(82vw, 520px);
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 32px 24px 28px;
+  border: 4px solid #FAF5FF;
+  outline: 4px solid #4a294e;
+  background: rgba(25, 19, 28, 0.86);
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.38);
+}
+
+.start-menu__title {
+  margin: 0;
+  color: #FAF5FF;
+  font-size: clamp(24px, 7vw, 48px);
+  line-height: 1.3;
+  text-shadow: 4px 4px #78317e;
+}
+
+.start-menu__button {
+  min-width: 170px;
+  min-height: 52px;
+  padding: 12px 24px;
+  border: 3px solid #FAF5FF;
+  border-radius: 0;
+  color: #251928;
+  background: #C084FC;
+  box-shadow: 5px 5px 0 #7e3159;
+  font-family: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.start-menu__button:hover {
+  background: #D8B4FE;
+}
+
+.start-menu__button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 #7e3159;
+}
+
+@media (max-width: 480px) {
+  .start-menu__panel {
+    width: min(78vw, 340px);
+    padding: 28px 18px 24px;
+  }
+
+  .start-menu__copy {
+    font-size: 10px;
+  }
 }
 
 h1,
@@ -32,59 +117,59 @@ th {
 }
 
 .dark_blue {
-  color: #0000AA;
+  color: #0000aa;
 }
 
 .dark_blue.shadow {
-  text-shadow: 3px 3px #00002A;
+  text-shadow: 3px 3px #00002a;
 }
 
 .dark_green {
-  color: #00AA00;
+  color: #00aa00;
 }
 
 .dark_green.shadow {
-  text-shadow: 3px 3px #002A00;
+  text-shadow: 3px 3px #002a00;
 }
 
 .dark_aqua {
-  color: #00AAAA;
+  color: #00aaaa;
 }
 
 .dark_aqua.shadow {
-  text-shadow: 3px 3px #002A2A;
+  text-shadow: 3px 3px #002a2a;
 }
 
 .dark_red {
-  color: #AA0000;
+  color: #aa0000;
 }
 
 .dark_red.shadow {
-  text-shadow: 3px 3px #2A0000;
+  text-shadow: 3px 3px #2a0000;
 }
 
 .dark_purple {
-  color: #AA00AA;
+  color: #aa00aa;
 }
 
 .dark_purple.shadow {
-  text-shadow: 3px 3px #2A002A;
+  text-shadow: 3px 3px #2a002a;
 }
 
 .gold {
-  color: #FFAA00;
+  color: #ffaa00;
 }
 
 .gold.shadow {
-  text-shadow: 3px 3px #2A2A00;
+  text-shadow: 3px 3px #2a2a00;
 }
 
 .gray {
-  color: #AAAAAA;
+  color: #aaaaaa;
 }
 
 .gray.shadow {
-  text-shadow: 3px 3px #2A2A2A;
+  text-shadow: 3px 3px #2a2a2a;
 }
 
 .dark_gray {
@@ -96,59 +181,59 @@ th {
 }
 
 .blue {
-  color: #5555FF;
+  color: #5555ff;
 }
 
 .blue.shadow {
-  text-shadow: 3px 3px #15153F;
+  text-shadow: 3px 3px #15153f;
 }
 
 .green {
-  color: #55FF55;
+  color: #55ff55;
 }
 
 .green.shadow {
-  text-shadow: 3px 3px #153F15;
+  text-shadow: 3px 3px #153f15;
 }
 
 .aqua {
-  color: #55FFFF;
+  color: #55ffff;
 }
 
 .aqua.shadow {
-  text-shadow: 3px 3px #153F3F;
+  text-shadow: 3px 3px #153f3f;
 }
 
 .red {
-  color: #FF5555;
+  color: #ff5555;
 }
 
 .red.shadow {
-  text-shadow: 3px 3px #3F1515;
+  text-shadow: 3px 3px #3f1515;
 }
 
 .light_purple {
-  color: #FF55FF;
+  color: #ff55ff;
 }
 
 .light_purple.shadow {
-  text-shadow: 3px 3px #3F153F;
+  text-shadow: 3px 3px #3f153f;
 }
 
 .yellow {
-  color: #FFFF55;
+  color: #ffff55;
 }
 
 .yellow.shadow {
-  text-shadow: 3px 3px #3F3F15;
+  text-shadow: 3px 3px #3f3f15;
 }
 
 .white {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .white.shadow {
-  text-shadow: 3px 3px #3F3F3F;
+  text-shadow: 3px 3px #3f3f3f;
 }
 
 .bold {

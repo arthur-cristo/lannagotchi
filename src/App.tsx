@@ -1,9 +1,45 @@
-import { Box, Flex, Grid, Image } from "@chakra-ui/react";
+import { useState } from "react";
+import { Box, Button, Flex, Grid, Image, Text } from "@chakra-ui/react";
 import Alanna from "./components/Alanna";
 import { APPS, SPRITES } from "./consts";
 import Icon from "./components/App/Icon";
 
 function App() {
+  const [hasStarted, setHasStarted] = useState(false);
+
+  const startGame = async () => {
+    try {
+      await document.documentElement.requestFullscreen();
+    } catch {}
+
+    const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(
+      navigator.userAgent,
+    );
+
+    if (isMobile && screen.orientation?.lock) {
+      try {
+        await screen.orientation.lock("portrait");
+      } catch {}
+    }
+
+    setHasStarted(true);
+  };
+
+  if (!hasStarted) {
+    return (
+      <Flex className="start-menu" direction="column" alignItems="center">
+        <Box className="start-menu__panel">
+          <Text as="h1" className="start-menu__title">
+            Lannagotchi
+          </Text>
+          <Button className="start-menu__button" onClick={startGame}>
+            Play
+          </Button>
+        </Box>
+      </Flex>
+    );
+  }
+
   return (
     <Flex
       w="100vw"
