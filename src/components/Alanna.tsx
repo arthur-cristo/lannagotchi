@@ -1,6 +1,6 @@
 import { Box, Image } from "@chakra-ui/react";
 import { useRef, useState } from "react";
-import { DEBUG, SPRITES } from "../consts";
+import { SPRITES } from "../consts";
 import useHitbox from "../hooks/useHitbox";
 import useMovement from "../hooks/useMovement";
 
@@ -10,12 +10,33 @@ const Alanna = () => {
 
   const { measurements } = useHitbox(hitbox, x);
 
-  const { state, sprite } = useMovement(measurements, setX, SPRITES.alanna);
+  const {
+    state,
+    sprite,
+    isDragging,
+    dragY,
+    handlePointerDown,
+    handlePointerUp,
+    handlePointerCancel,
+  } = useMovement(measurements, x, setX, SPRITES.alanna);
 
   const isWalkingRight = state === "movingRight";
 
+  const floorPosition = `calc(1rem + ${dragY}px)`;
+
   return (
-    <Box position="absolute" bottom={4} right={`${x}px`} ref={hitbox}>
+    <Box
+      position="absolute"
+      bottom={floorPosition}
+      right={`${x}px`}
+      ref={hitbox}
+      cursor={isDragging ? "grabbing" : "grab"}
+      touchAction="none"
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerCancel}
+      zIndex={isDragging ? 2 : 1}
+    >
       <Image
         h="72px"
         src={sprite}
@@ -23,26 +44,6 @@ const Alanna = () => {
         imageRendering="pixelated"
         transform={isWalkingRight ? "scaleX(-1)" : "none"}
       />
-
-      {measurements && DEBUG && (
-        <Box
-          position="absolute"
-          top="-100px"
-          left="0"
-          bg="black"
-          color="white"
-          p="2"
-          fontSize="xs"
-        >
-          left: {measurements.left.toFixed(0)}
-          <br />
-          right: {measurements.right.toFixed(0)}
-          <br />
-          width: {measurements.width.toFixed(0)}
-          <br />
-          sibling: {measurements.siblingDistance?.toFixed(0) ?? "null"}
-        </Box>
-      )}
     </Box>
   );
 };

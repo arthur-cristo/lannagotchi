@@ -3,6 +3,7 @@ import { Box, Button, Flex, Grid, Image, Text } from "@chakra-ui/react";
 import Alanna from "./components/Alanna";
 import { APPS, SPRITES } from "./consts";
 import Icon from "./components/App/Icon";
+import Arthur from "./components/Arthur";
 
 function App() {
   const [hasStarted, setHasStarted] = useState(false);
@@ -71,6 +72,7 @@ function App() {
             <Icon key={app.name} src={app.icon} label={app.name} />
           ))}
         </Grid>
+        <Arthur />
         <Alanna />
       </Box>
     </Flex>

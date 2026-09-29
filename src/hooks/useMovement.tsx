@@ -8,9 +8,11 @@ import { MOVEMENT_SPEED } from "../consts";
 
 const MIN_WALK_DISTANCE = 10;
 const WALK_FRAME_DURATION = 120;
+const GRAVITY = 2400;
 
 const useMovement = (
   hitboxMeasurements: HitboxMeasurements | null,
+  x: number,
   setX: React.Dispatch<React.SetStateAction<number>>,
   sprites: PersonSprites,
 ) => {
@@ -21,13 +23,62 @@ const useMovement = (
   const targetDistanceRef = useRef(0);
   const traveledRef = useRef(0);
 
+  const [dragY, setDragY] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isFalling, setIsFalling] = useState(false);
+  const dragStart = useRef({ x: 0, y: 0, right: 0, maxRight: 0, startY: 0 });
+  const draggingRef = useRef(false);
+  const fallAnimation = useRef<number | null>(null);
+  const dragYRef = useRef(0);
+  const velocityRef = useRef(0);
+  const isPaused = isDragging || isFalling;
+
+  const updateY = (value: number) => {
+    dragYRef.current = value;
+    setDragY(value);
+  };
+
+  const stopFall = () => {
+    if (fallAnimation.current !== null) {
+      cancelAnimationFrame(fallAnimation.current);
+      fallAnimation.current = null;
+    }
+    velocityRef.current = 0;
+  };
+
+  const startFall = () => {
+    stopFall();
+    setIsFalling(true);
+    let last = performance.now();
+
+    const fall = (now: number) => {
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+
+      velocityRef.current += GRAVITY * dt;
+      const nextY = Math.max(0, dragYRef.current - velocityRef.current * dt);
+      updateY(nextY);
+
+      if (nextY === 0) {
+        fallAnimation.current = null;
+        velocityRef.current = 0;
+        setIsFalling(false);
+        return;
+      }
+
+      fallAnimation.current = requestAnimationFrame(fall);
+    };
+
+    fallAnimation.current = requestAnimationFrame(fall);
+  };
+
   useEffect(() => {
     measurementsRef.current = hitboxMeasurements;
   }, [hitboxMeasurements]);
 
   // Decide when and where to walk
   useEffect(() => {
-    if (!hitboxMeasurements || state !== "idle") return;
+    if (isPaused || !hitboxMeasurements || state !== "idle") return;
 
     let timeoutId: ReturnType<typeof setTimeout>;
 
@@ -71,7 +122,7 @@ const useMovement = (
     decide();
 
     return () => clearTimeout(timeoutId);
-  }, [hitboxMeasurements, state]);
+  }, [hitboxMeasurements, isPaused, state]);
 
   // Walking animation
   useEffect(() => {
@@ -94,6 +145,11 @@ const useMovement = (
 
   // Movement
   useEffect(() => {
+    if (isPaused) {
+      setState("idle");
+      return;
+    }
+
     if (state === "idle") return;
 
     let animationId: number;
@@ -129,11 +185,92 @@ const useMovement = (
     animationId = requestAnimationFrame(move);
 
     return () => cancelAnimationFrame(animationId);
-  }, [state, setX]);
+  }, [isPaused, state, setX]);
+
+  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    stopFall();
+
+    const maxRight = measurementsRef.current
+      ? Math.max(
+          0,
+          measurementsRef.current.parentRight -
+            measurementsRef.current.parentLeft -
+            measurementsRef.current.width,
+        )
+      : 0;
+
+    dragStart.current = {
+      x: event.clientX,
+      y: event.clientY,
+      right: x,
+      maxRight,
+      startY: dragYRef.current,
+    };
+    draggingRef.current = true;
+    setIsFalling(false);
+    setIsDragging(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleWindowPointerMove = (event: PointerEvent) => {
+      if (!draggingRef.current) return;
+
+      const deltaX = event.clientX - dragStart.current.x;
+      const deltaY = dragStart.current.y - event.clientY;
+
+      setX(
+        Math.max(
+          0,
+          Math.min(
+            dragStart.current.maxRight,
+            dragStart.current.right - deltaX,
+          ),
+        ),
+      );
+      updateY(Math.max(0, dragStart.current.startY + deltaY));
+    };
+
+    const handleWindowPointerUp = () => {
+      if (!draggingRef.current) return;
+
+      draggingRef.current = false;
+      setIsDragging(false);
+
+      if (dragYRef.current > 0) startFall();
+    };
+
+    window.addEventListener("pointermove", handleWindowPointerMove);
+    window.addEventListener("pointerup", handleWindowPointerUp);
+    window.addEventListener("pointercancel", handleWindowPointerUp);
+
+    return () => {
+      window.removeEventListener("pointermove", handleWindowPointerMove);
+      window.removeEventListener("pointerup", handleWindowPointerUp);
+      window.removeEventListener("pointercancel", handleWindowPointerUp);
+    };
+  }, [isDragging, setX]);
+
+  const handlePointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+    event.currentTarget.releasePointerCapture(event.pointerId);
+  };
+
+  const handlePointerCancel = (event: React.PointerEvent<HTMLDivElement>) => {
+    event.currentTarget.releasePointerCapture(event.pointerId);
+  };
+
+  useEffect(() => stopFall, []);
 
   return {
     state,
     sprite,
+    dragY,
+    isDragging,
+    handlePointerDown,
+    handlePointerUp,
+    handlePointerCancel,
   };
 };
 
