@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "prettier --check .",
     "lint:fix": "prettier --write .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "chakra:typegen": "chakra typegen src/config/theme.ts --outdir src/config/generated/chakra --clean"
   },
   "dependencies": {
     "@chakra-ui/react": "3.37.0",
@@ -19,6 +20,7 @@
     "react-icons": "5.7.0"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "3.37.0",
     "@eslint/js": "10.0.1",
     "@types/node": "24.13.3",
     "@types/react": "19.2.18",
