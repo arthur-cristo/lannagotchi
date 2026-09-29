@@ -18,7 +18,31 @@ export const SPRITES = {
       "/sprites/arthur/walking_3.png",
     ],
   } as PersonSprites,
+  icons: {
+    arthur: "/sprites/icons/arthur.png",
+    notes: "/sprites/icons/notes.png",
+    spotify: "/sprites/icons/spotify.png",
+  },
 };
+
+export const APPS = [
+  {
+    name: "Arthur",
+    icon: SPRITES.icons.arthur,
+  },
+  {
+    name: "Notas",
+    icon: SPRITES.icons.notes,
+  },
+  {
+    name: "Músicas",
+    icon: SPRITES.icons.spotify,
+  },
+  {
+    name: "Cachorros",
+    icon: "/sprites/icons/dog.png",
+  },
+];
 
 export const DEBUG = false;
 

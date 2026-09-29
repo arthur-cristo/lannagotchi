@@ -1,6 +1,7 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Box, Flex, Grid, Image } from "@chakra-ui/react";
 import Alanna from "./components/Alanna";
-import { SPRITES } from "./consts";
+import { APPS, SPRITES } from "./consts";
+import Icon from "./components/App/Icon";
 
 function App() {
   return (
@@ -11,13 +12,29 @@ function App() {
       alignItems="center"
       bg="bg"
     >
-      <Box h="100%"  position="relative"  bg="red">
+      <Box h="100%" w={{ base: "100%", lg: "fit-content" }} position="relative">
         <Image
           h="100%"
+          w="100%"
           src={SPRITES.scene}
           alt="Quarto"
           imageRendering="pixelated"
         />
+        <Grid
+          position="absolute"
+          top="0"
+          left="0"
+          right="0"
+          w="100%"
+          h="100%"
+          templateColumns="repeat(4, 1fr)"
+          templateRows="repeat(9, 1fr)"
+          p={4}
+        >
+          {APPS.map((app) => (
+            <Icon key={app.name} src={app.icon} label={app.name} />
+          ))}
+        </Grid>
         <Alanna />
       </Box>
     </Flex>
