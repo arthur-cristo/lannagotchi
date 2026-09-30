@@ -58,6 +58,7 @@ const Alanna = () => {
     >
       <Image
         h="72px"
+        mx={-3}
         src={sprite}
         alt="Alanna"
         imageRendering="pixelated"

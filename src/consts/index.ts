@@ -37,16 +37,20 @@ export const APPS = [
     icon: SPRITES.icons.arthur,
   },
   {
-    name: "Notas",
-    icon: SPRITES.icons.notes,
+    name: "Cachorros",
+    icon: "/sprites/icons/dog.png",
+  },
+  {
+    name: "Galeria",
+    icon: "/sprites/icons/galeria.png",
   },
   {
     name: "Músicas",
     icon: SPRITES.icons.spotify,
   },
   {
-    name: "Cachorros",
-    icon: "/sprites/icons/dog.png",
+    name: "Notas",
+    icon: SPRITES.icons.notes,
   },
 ];
 

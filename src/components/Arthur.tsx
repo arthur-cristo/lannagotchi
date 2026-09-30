@@ -59,6 +59,7 @@ const Arthur = () => {
     >
       <Image
         h="80px"
+        mx={-3}
         src={sprite}
         alt="Arthur"
         imageRendering="pixelated"

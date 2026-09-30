@@ -115,7 +115,7 @@ function App() {
           w="100%"
           h="100%"
           templateColumns="repeat(4, 1fr)"
-          templateRows="repeat(9, 1fr)"
+          templateRows="repeat(7, 1fr)"
           p={4}
         >
           {APPS.map((app) => (
