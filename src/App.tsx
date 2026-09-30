@@ -5,9 +5,12 @@ import { APPS, SPRITES } from "./consts";
 import Icon from "./components/App/Icon";
 import Arthur from "./components/Arthur";
 import { useLannagotchi } from "./context/LannagotchiContext";
+import DesktopWindow from "./components/App/DesktopWindow";
 
 function App() {
   const [hasStarted, setHasStarted] = useState(false);
+  const [openWindows, setOpenWindows] = useState<string[]>([]);
+  const [windowOrder, setWindowOrder] = useState<string[]>([]);
 
   const startGame = async () => {
     try {
@@ -32,6 +35,30 @@ function App() {
   };
 
   const toggleArthur = useLannagotchi().toggleShowArthur;
+
+  const handleAppClick = (appName: string) => {
+    if (appName === "Arthur") {
+      toggleArthur();
+      return;
+    }
+
+    setOpenWindows((current) =>
+      current.includes(appName) ? current : [...current, appName],
+    );
+    focusWindow(appName);
+  };
+
+  const focusWindow = (appName: string) => {
+    setWindowOrder((current) => [
+      ...current.filter((name) => name !== appName),
+      appName,
+    ]);
+  };
+
+  const closeWindow = (appName: string) => {
+    setOpenWindows((current) => current.filter((name) => name !== appName));
+    setWindowOrder((current) => current.filter((name) => name !== appName));
+  };
 
   if (!hasStarted) {
     return (
@@ -76,9 +103,28 @@ function App() {
           p={4}
         >
           {APPS.map((app) => (
-            <Icon key={app.name} src={app.icon} label={app.name} onClick={toggleArthur} />
+            <Icon
+              key={app.name}
+              src={app.icon}
+              label={app.name}
+              onClick={() => handleAppClick(app.name)}
+            />
           ))}
         </Grid>
+        {openWindows.map((appName) => (
+          <DesktopWindow
+            key={appName}
+            title={appName}
+            zIndex={10 + windowOrder.indexOf(appName)}
+            onFocus={() => focusWindow(appName)}
+            onClose={() => closeWindow(appName)}
+            onMinimize={() => closeWindow(appName)}
+          >
+            <Text m={0} color="primary.800" fontSize="11px" lineHeight={1.8}>
+              {appName} is ready for its app content.
+            </Text>
+          </DesktopWindow>
+        ))}
         <Arthur />
         <Alanna />
       </Box>
