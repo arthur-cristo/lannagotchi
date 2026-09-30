@@ -22,7 +22,7 @@ type DesktopWindowProps = {
   initialPosition?: WindowPosition;
 };
 
-const DEFAULT_POSITION = { x: 24, y: 24 };
+const DEFAULT_POSITION = { x: 12, y: 120 };
 
 const DesktopWindow = ({
   title,
@@ -141,7 +141,7 @@ const DesktopWindow = ({
         alignItems="center"
         justifyContent="space-between"
         p="3px 4px 3px 8px"
-        background="linear-gradient(90deg, #581c87, #a855f7 70%, #c084fc)"
+        background="primary.500"
         color="primary.50"
         cursor="grab"
         touchAction="none"

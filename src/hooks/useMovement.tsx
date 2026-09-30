@@ -32,7 +32,7 @@ const useMovement = (
   const fallAnimation = useRef<number | null>(null);
   const dragYRef = useRef(0);
   const velocityRef = useRef(0);
-  const isPaused = isDragging || isFalling || frozen ;
+  const isPaused = isDragging || isFalling || frozen;
 
   const updateY = (value: number) => {
     dragYRef.current = value;

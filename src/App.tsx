@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Box, Button, Flex, Grid, Image, Text } from "@chakra-ui/react";
 import Alanna from "./components/Alanna";
 import { APPS, SPRITES } from "./consts";
@@ -6,6 +6,9 @@ import Icon from "./components/App/Icon";
 import Arthur from "./components/Arthur";
 import { useLannagotchi } from "./context/LannagotchiContext";
 import DesktopWindow from "./components/App/DesktopWindow";
+import NotesApp from "./components/Apps/NotesApp";
+import MusicApp from "./components/Apps/MusicApp";
+import PuppiesApp from "./components/Apps/PuppiesApp";
 
 function App() {
   const [hasStarted, setHasStarted] = useState(false);
@@ -58,6 +61,19 @@ function App() {
   const closeWindow = (appName: string) => {
     setOpenWindows((current) => current.filter((name) => name !== appName));
     setWindowOrder((current) => current.filter((name) => name !== appName));
+  };
+
+  const renderApp = (appName: string): ReactNode => {
+    switch (appName) {
+      case "Notas":
+        return <NotesApp />;
+      case "Músicas":
+        return <MusicApp />;
+      case "Cachorros":
+        return <PuppiesApp />;
+      default:
+        return null;
+    }
   };
 
   if (!hasStarted) {
@@ -120,9 +136,7 @@ function App() {
             onClose={() => closeWindow(appName)}
             onMinimize={() => closeWindow(appName)}
           >
-            <Text m={0} color="primary.800" fontSize="11px" lineHeight={1.8}>
-              {appName} is ready for its app content.
-            </Text>
+            {renderApp(appName)}
           </DesktopWindow>
         ))}
         <Arthur />

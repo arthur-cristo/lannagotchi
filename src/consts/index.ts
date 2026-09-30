@@ -50,6 +50,29 @@ export const APPS = [
   },
 ];
 
+export const NOTE_CONTENT = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`;
+
+export type Song = {
+  name: string;
+  mp3Path: string;
+  coverPath: string;
+};
+
+export const SONGS: Song[] = [
+  {
+    name: "First song",
+    mp3Path: "/songs/first-song.mp3",
+    coverPath: "/songs/first-song.jpg",
+  },
+  {
+    name: "Second song",
+    mp3Path: "/songs/second-song.mp3",
+    coverPath: "/songs/second-song.jpg",
+  },
+];
+
 export const DEBUG = false;
 export const TOUCH_DISTANCE = 0;
 export const MOVEMENT_SPEED = 1;
