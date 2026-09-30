@@ -1,7 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import type { HitboxMeasurements } from "../types";
 
-const useHitbox = (ref: React.RefObject<HTMLElement | null>, x: number) => {
+const useHitbox = (
+  ref: React.RefObject<HTMLElement | null>,
+  x: number,
+  tick = 0,
+) => {
   const [measurements, setMeasurements] = useState<HitboxMeasurements | null>(
     null,
   );
@@ -21,21 +25,27 @@ const useHitbox = (ref: React.RefObject<HTMLElement | null>, x: number) => {
     const left = hitboxRect.left - parentRect.left;
     const right = parentRect.right - hitboxRect.right;
 
-    const sibling = Array.from(parent.children).find(
-      (child) => child !== hitboxElement,
-    ) as HTMLElement | undefined;
+    const sibling = Array.from(
+      parent.querySelectorAll<HTMLElement>(":scope > [data-character]"),
+    ).find((el) => el !== hitboxElement);
 
     let siblingDistance: number | null = null;
+    let siblingSide: "left" | "right" | null = null;
 
     if (sibling) {
       const siblingRect = sibling.getBoundingClientRect();
 
       if (siblingRect.right <= hitboxRect.left) {
         siblingDistance = hitboxRect.left - siblingRect.right;
+        siblingSide = "left";
       } else if (siblingRect.left >= hitboxRect.right) {
         siblingDistance = siblingRect.left - hitboxRect.right;
+        siblingSide = "right";
       } else {
         siblingDistance = 0;
+        const siblingCenter = siblingRect.left + siblingRect.width / 2;
+        const myCenter = hitboxRect.left + hitboxRect.width / 2;
+        siblingSide = siblingCenter < myCenter ? "left" : "right";
       }
     }
 
@@ -46,8 +56,13 @@ const useHitbox = (ref: React.RefObject<HTMLElement | null>, x: number) => {
       parentLeft: parentRect.left,
       parentRight: parentRect.right,
       siblingDistance,
+      siblingSide,
     });
   }, [ref]);
+
+  useEffect(() => {
+    calculate();
+  }, [x, tick, calculate]);
 
   useEffect(() => {
     calculate();

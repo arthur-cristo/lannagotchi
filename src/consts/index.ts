@@ -11,6 +11,7 @@ import arthurWalk3 from "../assets/sprites/arthur/walking_3.png";
 import arthurIcon from "../assets/sprites/icons/arthur.png";
 import notesIcon from "../assets/sprites/icons/notes.png";
 import spotifyIcon from "../assets/sprites/icons/spotify2.png";
+import heartIcon from "../assets/sprites/heart.png";
 
 export const SPRITES = {
   scene: scene,
@@ -27,6 +28,7 @@ export const SPRITES = {
     notes: notesIcon,
     spotify: spotifyIcon,
   },
+  heart: heartIcon,
 };
 
 export const APPS = [
@@ -49,5 +51,5 @@ export const APPS = [
 ];
 
 export const DEBUG = false;
-
+export const TOUCH_DISTANCE = 0;
 export const MOVEMENT_SPEED = 1;

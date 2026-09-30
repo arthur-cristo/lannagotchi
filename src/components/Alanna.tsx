@@ -1,14 +1,32 @@
 import { Box, Image } from "@chakra-ui/react";
-import { useRef, useState } from "react";
-import { SPRITES } from "../consts";
+import { useEffect, useRef, useState } from "react";
+import { SPRITES, TOUCH_DISTANCE } from "../consts";
 import useHitbox from "../hooks/useHitbox";
 import useMovement from "../hooks/useMovement";
+import { useLove } from "../context/LoveContext";
+import { useLannagotchi } from "../context/LannagotchiContext";
+import LoveParticles from "./LoveParticles";
 
 const Alanna = () => {
   const hitbox = useRef<HTMLDivElement>(null);
   const [x, setX] = useState(0);
 
-  const { measurements } = useHitbox(hitbox, x);
+  const showArthur = useLannagotchi().showArthur;
+  const { inLove, tick, bump, startLove } = useLove();
+
+  const { measurements } = useHitbox(hitbox, x, tick);
+
+  const touching =
+    showArthur &&
+    measurements?.siblingDistance != null &&
+    measurements.siblingDistance <= TOUCH_DISTANCE;
+
+  const frozen = inLove && showArthur;
+
+  useEffect(() => bump(), [x, bump]);
+  useEffect(() => {
+    if (touching) startLove();
+  }, [touching, startLove]);
 
   const {
     state,
@@ -18,7 +36,7 @@ const Alanna = () => {
     handlePointerDown,
     handlePointerUp,
     handlePointerCancel,
-  } = useMovement(measurements, x, setX, SPRITES.alanna);
+  } = useMovement(measurements, x, setX, SPRITES.alanna, frozen);
 
   const isWalkingRight = state === "movingRight";
 
@@ -26,6 +44,7 @@ const Alanna = () => {
 
   return (
     <Box
+      data-character
       position="absolute"
       bottom={floorPosition}
       right={`${x}px`}
@@ -43,6 +62,10 @@ const Alanna = () => {
         alt="Alanna"
         imageRendering="pixelated"
         transform={isWalkingRight ? "scaleX(-1)" : "none"}
+      />
+      <LoveParticles
+        active={frozen}
+        side={measurements?.siblingSide ?? "left"}
       />
     </Box>
   );

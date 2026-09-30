@@ -5,6 +5,7 @@ export type HitboxMeasurements = {
   parentLeft: number;
   parentRight: number;
   siblingDistance: number | null;
+  siblingSide: "left" | "right" | null;
 };
 
 export type MovementState = "movingLeft" | "movingRight" | "idle";

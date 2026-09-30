@@ -15,6 +15,7 @@ const useMovement = (
   x: number,
   setX: React.Dispatch<React.SetStateAction<number>>,
   sprites: PersonSprites,
+  frozen = false,
 ) => {
   const [state, setState] = useState<MovementState>("idle");
   const [sprite, setSprite] = useState(sprites.idle);
@@ -31,7 +32,7 @@ const useMovement = (
   const fallAnimation = useRef<number | null>(null);
   const dragYRef = useRef(0);
   const velocityRef = useRef(0);
-  const isPaused = isDragging || isFalling;
+  const isPaused = isDragging || isFalling || frozen ;
 
   const updateY = (value: number) => {
     dragYRef.current = value;

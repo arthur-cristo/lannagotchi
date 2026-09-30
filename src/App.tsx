@@ -4,6 +4,7 @@ import Alanna from "./components/Alanna";
 import { APPS, SPRITES } from "./consts";
 import Icon from "./components/App/Icon";
 import Arthur from "./components/Arthur";
+import { useLannagotchi } from "./context/LannagotchiContext";
 
 function App() {
   const [hasStarted, setHasStarted] = useState(false);
@@ -29,6 +30,8 @@ function App() {
 
     setHasStarted(true);
   };
+
+  const toggleArthur = useLannagotchi().toggleShowArthur;
 
   if (!hasStarted) {
     return (
@@ -73,7 +76,7 @@ function App() {
           p={4}
         >
           {APPS.map((app) => (
-            <Icon key={app.name} src={app.icon} label={app.name} />
+            <Icon key={app.name} src={app.icon} label={app.name} onClick={toggleArthur} />
           ))}
         </Grid>
         <Arthur />
