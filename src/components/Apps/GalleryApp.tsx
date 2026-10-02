@@ -8,11 +8,7 @@ const GalleryApp = () => {
 
   return (
     <Flex h="100%" minH={0} direction="column" gap="8px" color="primary.950">
-      <Box
-        h="100%"
-        overflowY="auto"
-        overscrollBehavior="contain"
-      >
+      <Box h="100%" overflowY="auto" overscrollBehavior="contain">
         <Flex direction="column" gap="10px">
           {photos.map((path, index) => (
             <Box
