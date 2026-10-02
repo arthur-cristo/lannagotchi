@@ -31,6 +31,16 @@ export const SPRITES = {
   heart: heartIcon,
 };
 
+export const GALLERY = Object.entries(
+  import.meta.glob<string>("../assets/gallery/*", {
+    eager: true,
+    import: "default",
+    query: "?url",
+  }),
+)
+  .sort(([firstPath], [secondPath]) => firstPath.localeCompare(secondPath))
+  .map(([, imageUrl]) => imageUrl);
+
 export const APPS = [
   {
     name: "Arthur",

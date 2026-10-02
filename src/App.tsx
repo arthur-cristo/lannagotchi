@@ -9,6 +9,7 @@ import DesktopWindow from "./components/App/DesktopWindow";
 import NotesApp from "./components/Apps/NotesApp";
 import MusicApp from "./components/Apps/MusicApp";
 import PuppiesApp from "./components/Apps/PuppiesApp";
+import GalleryApp from "./components/Apps/GalleryApp";
 
 function App() {
   const [hasStarted, setHasStarted] = useState(false);
@@ -71,6 +72,8 @@ function App() {
         return <MusicApp />;
       case "Cachorros":
         return <PuppiesApp />;
+      case "Galeria":
+        return <GalleryApp />;
       default:
         return null;
     }
