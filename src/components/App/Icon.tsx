@@ -1,4 +1,6 @@
 import { VStack, Image, Text } from "@chakra-ui/react";
+import { useState } from "react";
+import playClickSound from "../../utils/playClickSound";
 
 type Props = {
   src: string;
@@ -7,13 +9,24 @@ type Props = {
 };
 
 const Icon = ({ src, label, onClick }: Props) => {
+  const [isPressed, setIsPressed] = useState(false);
+
+  const handleClick = () => {
+    setIsPressed(true);
+    window.setTimeout(() => setIsPressed(false), 140);
+    playClickSound();
+    onClick();
+  };
+
   return (
     <VStack
       gap={0}
       justifyContent="center"
       alignItems="center"
       cursor="pointer"
-      onClick={onClick}
+      onClick={handleClick}
+      transform={isPressed ? "scale(1.12)" : "scale(1)"}
+      transition="transform 140ms steps(2, end)"
     >
       <Image
         src={src}

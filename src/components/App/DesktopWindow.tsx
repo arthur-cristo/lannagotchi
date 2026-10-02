@@ -6,6 +6,7 @@ import {
   type PointerEvent,
   type ReactNode,
 } from "react";
+import playClickSound from "../../utils/playClickSound";
 
 type WindowPosition = {
   x: number;
@@ -20,6 +21,7 @@ type DesktopWindowProps = {
   onFocus?: () => void;
   zIndex?: number;
   initialPosition?: WindowPosition;
+  isMinimized?: boolean;
 };
 
 const DEFAULT_POSITION = { x: 12, y: 120 };
@@ -32,6 +34,7 @@ const DesktopWindow = ({
   onFocus,
   zIndex = 10,
   initialPosition = DEFAULT_POSITION,
+  isMinimized = false,
 }: DesktopWindowProps) => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [position, setPosition] = useState(initialPosition);
@@ -117,8 +120,9 @@ const DesktopWindow = ({
       ref={windowRef}
       position="absolute"
       zIndex={zIndex}
-      display="flex"
+      display={isMinimized ? "none" : "flex"}
       w={isMaximized ? "auto" : "min(360px, calc(100% - 16px))"}
+      h={isMaximized ? "auto" : "min(520px, 62vh)"}
       minH={isMaximized ? 0 : "220px"}
       flexDirection="column"
       inset={isMaximized ? 2 : undefined}
@@ -163,7 +167,10 @@ const DesktopWindow = ({
           <Button
             type="button"
             {...controlProps}
-            onClick={onMinimize}
+            onClick={() => {
+              playClickSound();
+              onMinimize();
+            }}
             aria-label={`Minimize ${title}`}
           >
             -
@@ -171,7 +178,10 @@ const DesktopWindow = ({
           <Button
             type="button"
             {...controlProps}
-            onClick={() => setIsMaximized((current) => !current)}
+            onClick={() => {
+              playClickSound();
+              setIsMaximized((current) => !current);
+            }}
             aria-label={isMaximized ? `Restore ${title}` : `Maximize ${title}`}
           >
             □
@@ -179,14 +189,24 @@ const DesktopWindow = ({
           <Button
             type="button"
             {...controlProps}
-            onClick={onClose}
+            onClick={() => {
+              playClickSound();
+              onClose();
+            }}
             aria-label={`Close ${title}`}
           >
             X
           </Button>
         </Flex>
       </Flex>
-      <Box flex={1} p="20px" bg="primary.50">
+      <Box
+        className="window-content"
+        flex={1}
+        minH={0}
+        overflow="hidden"
+        p={4}
+        bg="primary.50"
+      >
         {children}
       </Box>
     </Box>

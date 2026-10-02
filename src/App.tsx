@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Box, Button, Flex, Grid, Image, Text } from "@chakra-ui/react";
 import Alanna from "./components/Alanna";
 import { APPS, SPRITES } from "./consts";
@@ -11,32 +11,61 @@ import MusicApp from "./components/Apps/MusicApp";
 import PuppiesApp from "./components/Apps/PuppiesApp";
 import GalleryApp from "./components/Apps/GalleryApp";
 
+const requestFullscreenAndPortrait = async () => {
+  if (!document.fullscreenElement) {
+    try {
+      await document.documentElement.requestFullscreen();
+    } catch (error) {
+      console.error("Failed to enter fullscreen mode:", error);
+    }
+  }
+
+  if (screen.orientation?.lock) {
+    try {
+      await screen.orientation.lock("portrait");
+    } catch (error) {
+      console.error("Failed to lock screen orientation:", error);
+    }
+  }
+};
+
+const WHATSAPP_URL = "https://wa.me/5571999408469";
+
 function App() {
   const [hasStarted, setHasStarted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(() =>
+    Boolean(document.fullscreenElement),
+  );
   const [openWindows, setOpenWindows] = useState<string[]>([]);
+  const [minimizedWindows, setMinimizedWindows] = useState<string[]>([]);
   const [windowOrder, setWindowOrder] = useState<string[]>([]);
 
   const startGame = async () => {
-    try {
-      await document.documentElement.requestFullscreen();
-    } catch (e) {
-      console.error("Failed to enter fullscreen mode:", e);
-    }
-
-    const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(
-      navigator.userAgent,
-    );
-
-    if (isMobile && screen.orientation?.lock) {
-      try {
-        await screen.orientation.lock("portrait");
-      } catch (e) {
-        console.error("Failed to lock screen orientation:", e);
-      }
-    }
-
+    await requestFullscreenAndPortrait();
     setHasStarted(true);
   };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(Boolean(document.fullscreenElement));
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () =>
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    const handlePagePointerDown = () => {
+      void requestFullscreenAndPortrait();
+    };
+
+    document.addEventListener("pointerdown", handlePagePointerDown);
+    return () =>
+      document.removeEventListener("pointerdown", handlePagePointerDown);
+  }, [hasStarted]);
 
   const toggleArthur = useLannagotchi().toggleShowArthur;
 
@@ -46,8 +75,25 @@ function App() {
       return;
     }
 
+    if (appName === "WhatsApp") {
+      window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    if (appName === "Pixel Art Tool") {
+      window.open(
+        "https://arthur-cristo.github.io/PixelArtTool/",
+        "_blank",
+        "noopener,noreferrer",
+      );
+      return;
+    }
+
     setOpenWindows((current) =>
       current.includes(appName) ? current : [...current, appName],
+    );
+    setMinimizedWindows((current) =>
+      current.filter((name) => name !== appName),
     );
     focusWindow(appName);
   };
@@ -61,7 +107,16 @@ function App() {
 
   const closeWindow = (appName: string) => {
     setOpenWindows((current) => current.filter((name) => name !== appName));
+    setMinimizedWindows((current) =>
+      current.filter((name) => name !== appName),
+    );
     setWindowOrder((current) => current.filter((name) => name !== appName));
+  };
+
+  const minimizeWindow = (appName: string) => {
+    setMinimizedWindows((current) =>
+      current.includes(appName) ? current : [...current, appName],
+    );
   };
 
   const renderApp = (appName: string): ReactNode => {
@@ -102,13 +157,20 @@ function App() {
       alignItems="center"
       bg="bg"
     >
-      <Box h="100%" w={{ base: "100%", lg: "fit-content" }} position="relative">
+      <Box
+        h="100%"
+        w={{ base: "100%", lg: "fit-content" }}
+        position="relative"
+        overflow="hidden"
+      >
         <Image
           h="100%"
           w="100%"
           src={SPRITES.scene}
           alt="Quarto"
           imageRendering="pixelated"
+          objectFit={isFullscreen ? "fill" : "cover"}
+          objectPosition="bottom"
         />
         <Grid
           position="absolute"
@@ -135,9 +197,10 @@ function App() {
             key={appName}
             title={appName}
             zIndex={10 + windowOrder.indexOf(appName)}
+            isMinimized={minimizedWindows.includes(appName)}
             onFocus={() => focusWindow(appName)}
             onClose={() => closeWindow(appName)}
-            onMinimize={() => closeWindow(appName)}
+            onMinimize={() => minimizeWindow(appName)}
           >
             {renderApp(appName)}
           </DesktopWindow>

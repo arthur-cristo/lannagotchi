@@ -12,6 +12,10 @@ import arthurIcon from "../assets/sprites/icons/arthur.png";
 import notesIcon from "../assets/sprites/icons/notes.png";
 import spotifyIcon from "../assets/sprites/icons/spotify2.png";
 import heartIcon from "../assets/sprites/heart.png";
+import love from "../assets/sprites/icons/love.png";
+import galleryIcon from "../assets/sprites/icons/gallery.png";
+import viteIcon from "../assets/sprites/icons/vite.svg";
+import whatsappIcon from "../assets/sprites/icons/whatsapp.svg";
 
 export const SPRITES = {
   scene: scene,
@@ -27,6 +31,10 @@ export const SPRITES = {
     arthur: arthurIcon,
     notes: notesIcon,
     spotify: spotifyIcon,
+    love: love,
+    gallery: galleryIcon,
+    vite: viteIcon,
+    whatsapp: whatsappIcon,
   },
   heart: heartIcon,
 };
@@ -48,11 +56,11 @@ export const APPS = [
   },
   {
     name: "Cachorros",
-    icon: "/sprites/icons/dog.png",
+    icon: SPRITES.icons.love,
   },
   {
     name: "Galeria",
-    icon: "/sprites/icons/galeria.png",
+    icon: SPRITES.icons.gallery,
   },
   {
     name: "Músicas",
@@ -61,6 +69,14 @@ export const APPS = [
   {
     name: "Notas",
     icon: SPRITES.icons.notes,
+  },
+  {
+    name: "Pixel Art Tool",
+    icon: SPRITES.icons.vite,
+  },
+  {
+    name: "WhatsApp",
+    icon: SPRITES.icons.whatsapp,
   },
 ];
 
@@ -74,18 +90,30 @@ export type Song = {
   coverPath: string;
 };
 
-export const SONGS: Song[] = [
-  {
-    name: "First song",
-    mp3Path: "/songs/first-song.mp3",
-    coverPath: "/songs/first-song.jpg",
-  },
-  {
-    name: "Second song",
-    mp3Path: "/songs/second-song.mp3",
-    coverPath: "/songs/second-song.jpg",
-  },
-];
+const audioFiles = import.meta.glob<string>("../assets/songs/*/*.mp3", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+
+const coverFiles = import.meta.glob<string>(
+  "../assets/songs/*/*.{avif,jfif,jpg,jpeg,png,webp}",
+  { eager: true, import: "default", query: "?url" },
+);
+
+const getFolderName = (path: string) => path.split("/").slice(-2, -1)[0];
+
+const covers = Object.fromEntries(
+  Object.entries(coverFiles).map(([path, url]) => [getFolderName(path), url]),
+);
+
+export const SONGS: Song[] = Object.entries(audioFiles)
+  .map(([path, mp3Path]) => {
+    const name = getFolderName(path);
+    return { name, mp3Path, coverPath: covers[name] };
+  })
+  .filter((song) => !!song.coverPath)
+  .sort((a, b) => a.name.localeCompare(b.name));
 
 export const DEBUG = false;
 export const TOUCH_DISTANCE = 0;

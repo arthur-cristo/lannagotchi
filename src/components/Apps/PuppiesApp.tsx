@@ -166,13 +166,12 @@ const PuppiesApp = () => {
   };
 
   return (
-    <Flex direction="column" gap="8px" color="primary.950">
+    <Flex h="100%" minH={0} direction="column" gap="8px" color="primary.950">
       <Box
         ref={feedRef}
-        h="min(520px, 62vh)"
+        h="100%"
         overflowY="auto"
         overscrollBehavior="contain"
-        scrollSnapType="y mandatory"
         onScroll={handleFeedScroll}
       >
         <Flex direction="column" gap="10px">
