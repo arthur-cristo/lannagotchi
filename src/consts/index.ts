@@ -104,9 +104,49 @@ export const APPS = [
   },
 ];
 
-export const NOTE_CONTENT = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+export const LOREM_IPSUM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`;
+
+export const NOTE_CONTENT = `Oi amor💖! Mais um ano juntos de muitoos. Sou muito sortudo de ter você ao meu lado durante esses quatro (4) anos, e, espero, por muitos mais (forever😛)!
+
+Não sou muito bom com palavras, você deve imaginar que tô tendo que usar muito do meu celebero para fazer essa cartinha, mas espero que consiga demonstrar meu amor por você, e que você sinta  o mesmo carinho que você me faz sentir minha gatinha.
+
+Você é a pessoa mais incrível que eu já conheci, e, com certeza, a minha pessoa favorita de todas. Eu sou muito grato por ter você na minha vida. Você me faz sentir muito amado e feliz.
+
+Acho a sua personalidade muito legal (cool😎). Da sua beleza eu nem preciso falar né - fiu fiu.
+
+A referência nerd desse ano vai ser dizer que você é a minha Penelope, e eu serei seu Odisseu😛. (Ou o Abbacchio do seu Bucciarati, se você preferir).
+
+Ter decidido falar com você no Impacto foi uma das melhores escolhas que tive, e fico feliz de ter um relacionamento tão legal com você, uma pessoa tão divertida, carinhosa, meiga e linda.
+
+Espero que goste da surpresinha que preparei para você, (é pra olhar todos os detalhes viu!), e que, o nosso dia (comemorativo) seja muito legal e mais uma memória boa que vamos criar juntos.
+
+Te amo muito minha princesa, muito muito muito muito muito mesmo😘!  - Arthur`;
+
+export const ASCII_ART = `
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡂⠀⢁⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⡂⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⡀⠀⠀⠀⠈⡀⠂⠀⠀⠀⠀⠀⠀⠂⠀⠀⠠⠀⠀⠀
+⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠁⠀⠀⡀⠀⠀⠀⠀⠀⠡⠀⠀⠀⠀⠁⠂⠀⠂⠀⢀⡄⠀⠀⠠⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠄⠀⠀⠀⠀⠀⠁⠀⠐⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⡀⠀⠀⠀⠀⠀⠢⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠄⠀⠂⠀⢀⠀⠄⠀⠀⠀⠀⠁⠀⡀⠀⠠⠀⠀⠀⠀⠀⠎⠄⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⠀⠀⠀⠸⠀⠀⠀⠁⠠⠀⠀⠀⠀⢀⠀⠀⠁⠠⠀⠀⠀⠀⠀⠀⠀
+⠀⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⡀⠀⠀⠀⠀⠀⠈⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠄⠀⠀⠂⠀⠀⡄⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠠⠂⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠂⠂⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⠀⠀⠀⡀⠀⠀⠀⠀⠡⠀⠀⠀⠈⠀⠀⠀⠄⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠁⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⠀⠈⡀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢀⠈⠐⠀⠀⠀⠠⠀⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⡀⠀⠀⠆⠀⠀⠀⠀⠀⠀⠀⠀⠂⡀⠀⠀⠁
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠀⠀⠀⠀⠀⠄⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠐⠀⠀⠀⠀⠀⠄⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠐⠀⠀⠀⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⡀⠀⠀⡀⢠⢀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠘⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠂⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠂⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠂⠀⠀⠄⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+`;
 
 export type Song = {
   name: string;
