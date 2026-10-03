@@ -8,6 +8,14 @@ import arthurIdle from "../assets/sprites/arthur/idle.png";
 import arthurWalk1 from "../assets/sprites/arthur/walking_1.png";
 import arthurWalk2 from "../assets/sprites/arthur/walking_2.png";
 import arthurWalk3 from "../assets/sprites/arthur/walking_3.png";
+import creepyAlannaIdle from "../assets/sprites/alanna/creepy/idle.png";
+import creepyAlannaWalk1 from "../assets/sprites/alanna/creepy/walking_1.png";
+import creepyAlannaWalk2 from "../assets/sprites/alanna/creepy/walking_2.png";
+import creepyAlannaWalk3 from "../assets/sprites/alanna/creepy/walking_3.png";
+import creepyArthurIdle from "../assets/sprites/arthur/creepy/idle.png";
+import creepyArthurWalk1 from "../assets/sprites/arthur/creepy/walking_1.png";
+import creepyArthurWalk2 from "../assets/sprites/arthur/creepy/walking_2.png";
+import creepyArthurWalk3 from "../assets/sprites/arthur/creepy/walking_3.png";
 import arthurIcon from "../assets/sprites/icons/arthur.png";
 import notesIcon from "../assets/sprites/icons/notes.png";
 import spotifyIcon from "../assets/sprites/icons/spotify2.png";
@@ -16,6 +24,7 @@ import love from "../assets/sprites/icons/love.png";
 import galleryIcon from "../assets/sprites/icons/gallery.png";
 import viteIcon from "../assets/sprites/icons/vite.svg";
 import whatsappIcon from "../assets/sprites/icons/whatsapp.svg";
+import settingsIcon from "../assets/sprites/icons/settings.png";
 
 export const SPRITES = {
   scene: scene,
@@ -27,6 +36,16 @@ export const SPRITES = {
     idle: arthurIdle,
     walk: [arthurWalk1, arthurWalk2, arthurWalk3],
   } as PersonSprites,
+  creepy: {
+    alanna: {
+      idle: creepyAlannaIdle,
+      walk: [creepyAlannaWalk1, creepyAlannaWalk2, creepyAlannaWalk3],
+    },
+    arthur: {
+      idle: creepyArthurIdle,
+      walk: [creepyArthurWalk1, creepyArthurWalk2, creepyArthurWalk3],
+    },
+  } as Record<string, PersonSprites>,
   icons: {
     arthur: arthurIcon,
     notes: notesIcon,
@@ -35,6 +54,7 @@ export const SPRITES = {
     gallery: galleryIcon,
     vite: viteIcon,
     whatsapp: whatsappIcon,
+    settings: settingsIcon,
   },
   heart: heartIcon,
 };
@@ -57,6 +77,10 @@ export const APPS = [
   {
     name: "Cachorros",
     icon: SPRITES.icons.love,
+  },
+  {
+    name: "Configurações",
+    icon: SPRITES.icons.settings,
   },
   {
     name: "Galeria",
@@ -118,3 +142,5 @@ export const SONGS: Song[] = Object.entries(audioFiles)
 export const DEBUG = false;
 export const TOUCH_DISTANCE = 0;
 export const MOVEMENT_SPEED = 1;
+
+export const WHATSAPP_URL = "https://wa.me/5571999408469";

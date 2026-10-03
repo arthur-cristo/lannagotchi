@@ -11,7 +11,9 @@ const Alanna = () => {
   const hitbox = useRef<HTMLDivElement>(null);
   const [x, setX] = useState(0);
 
-  const showArthur = useLannagotchi().showArthur;
+  const { showArthur, creepyMode } = useLannagotchi();
+
+  const sprites = creepyMode ? SPRITES.creepy.alanna : SPRITES.alanna;
   const { inLove, tick, bump, startLove } = useLove();
 
   const { measurements } = useHitbox(hitbox, x, tick);
@@ -36,7 +38,7 @@ const Alanna = () => {
     handlePointerDown,
     handlePointerUp,
     handlePointerCancel,
-  } = useMovement(measurements, x, setX, SPRITES.alanna, frozen);
+  } = useMovement(measurements, x, setX, sprites, frozen);
 
   const isWalkingRight = state === "movingRight";
 

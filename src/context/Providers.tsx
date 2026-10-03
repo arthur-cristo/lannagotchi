@@ -1,10 +1,13 @@
 import React from "react";
 import { LannagotchiProvider } from "./LannagotchiContext";
 import { LoveProvider } from "./LoveContext";
+import { WindowsProvider } from "./WindowsContext";
 
 const Providers = ({ children }: { children: React.ReactNode }) => (
   <LannagotchiProvider>
-    <LoveProvider>{children}</LoveProvider>
+    <WindowsProvider>
+      <LoveProvider>{children}</LoveProvider>
+    </WindowsProvider>
   </LannagotchiProvider>
 );
 

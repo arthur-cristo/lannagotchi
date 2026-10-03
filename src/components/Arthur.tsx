@@ -13,7 +13,9 @@ const Arthur = () => {
   const { inLove, tick, bump, startLove } = useLove();
   const { measurements } = useHitbox(hitbox, x, tick);
 
-  const showArthur = useLannagotchi().showArthur;
+  const { showArthur, creepyMode } = useLannagotchi();
+
+  const sprites = creepyMode ? SPRITES.creepy.arthur : SPRITES.arthur;
 
   const touching =
     showArthur &&
@@ -35,7 +37,7 @@ const Arthur = () => {
     handlePointerDown,
     handlePointerUp,
     handlePointerCancel,
-  } = useMovement(measurements, x, setX, SPRITES.arthur, frozen);
+  } = useMovement(measurements, x, setX, sprites, frozen);
 
   const isWalkingRight = state === "movingRight";
 

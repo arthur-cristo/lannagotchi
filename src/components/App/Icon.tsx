@@ -1,6 +1,6 @@
 import { VStack, Image, Text } from "@chakra-ui/react";
 import { useState } from "react";
-import playClickSound from "../../utils/playClickSound";
+import useSound from "../../hooks/useSound";
 
 type Props = {
   src: string;
@@ -10,6 +10,7 @@ type Props = {
 
 const Icon = ({ src, label, onClick }: Props) => {
   const [isPressed, setIsPressed] = useState(false);
+  const { playClickSound } = useSound();
 
   const handleClick = () => {
     setIsPressed(true);

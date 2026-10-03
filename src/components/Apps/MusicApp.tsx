@@ -9,6 +9,7 @@ import {
 } from "react-icons/lu";
 import { SONGS, type Song } from "../../consts";
 import shuffle from "../../utils/shufle";
+import { useLannagotchi } from "../../context/LannagotchiContext";
 
 const formatTime = (value: number) => {
   if (!Number.isFinite(value)) return "0:00";
@@ -30,13 +31,14 @@ const MusicApp = () => {
   const [volume, setVolume] = useState(0.5);
   const [isVolumeOpen, setIsVolumeOpen] = useState(false);
   const song: Song | undefined = songs[songIndex];
+  const { mute } = useLannagotchi();
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio || !song) return;
 
     audio.pause();
-    audio.volume = volume;
+    audio.volume = mute ? 0 : volume;
     audio.load();
     setCurrentTime(0);
     setDuration(0);
@@ -49,9 +51,9 @@ const MusicApp = () => {
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = volume;
+      audioRef.current.volume = mute ? 0 : volume;
     }
-  }, [volume]);
+  }, [volume, mute]);
 
   useEffect(() => {
     if (!isVolumeOpen) return;

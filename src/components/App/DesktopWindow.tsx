@@ -6,7 +6,7 @@ import {
   type PointerEvent,
   type ReactNode,
 } from "react";
-import playClickSound from "../../utils/playClickSound";
+import useSound from "../../hooks/useSound";
 
 type WindowPosition = {
   x: number;
@@ -41,6 +41,7 @@ const DesktopWindow = ({
   const [isDragging, setIsDragging] = useState(false);
   const windowRef = useRef<HTMLElement>(null);
   const dragOffset = useRef({ x: 0, y: 0 });
+  const { playClickSound } = useSound();
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (isMaximized) return;
